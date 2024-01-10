@@ -1,0 +1,35 @@
+.intro {
+    text-align: center;
+    background-color: #4d4d4d;
+    padding: 5px;
+    font-family: Lato, Montserrat, sans-serif;
+    font-size: 15px;
+    font-color: white;
+    margin-bottom: 20px;
+}
+/* Desctop */
+@media (min-width: 1255px) {
+    .intro {
+        padding: 15px;
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+}
+
+/* Tablet */
+@media (min-width: 715px) and (max-width: 1254px) {
+    .intro {
+        padding: 15px;
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 715px) {
+    .intro {
+        padding: 10px;
+        font-size: 15px;
+        margin-bottom: 25px;
+    }
+}
