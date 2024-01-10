@@ -6,6 +6,8 @@ plugins {
     id("org.graalvm.buildtools.native") version "0.9.28"
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.spring") version "1.9.21"
+    kotlin("plugin.jpa") version "1.8.0"
+
 }
 
 group = "org.bogdans"
@@ -26,13 +28,24 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    compileOnly("org.projectlombok:lombok")
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-    annotationProcessor("org.projectlombok:lombok")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.4")
+    implementation("org.springframework.boot:spring-boot-starter-web:3.1.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.10")
+    compileOnly("org.projectlombok:lombok:1.18.26")
+    developmentOnly("org.springframework.boot:spring-boot-devtools:3.0.4")
+    annotationProcessor("org.projectlombok:lombok:1.18.26")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.0")
+
+    implementation("jakarta.persistence:jakarta.persistence-api:3.1.0")
+
+    implementation("org.springframework.boot:spring-boot-starter-security:3.0.4")
+    implementation ("io.jsonwebtoken:jjwt-api:0.11.2")
+    runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.2")
+    runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.11.2")
+
+    implementation("org.springframework.boot:spring-boot-starter-validation:3.0.4")
+
 }
 
 tasks.withType<KotlinCompile> {

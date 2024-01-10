@@ -1,11 +1,11 @@
-package org.bogdans.iitmo_web_lab_4
+package org.bogdans
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class IitmoWebLab4Application
+class MyApplication
 
 fun main(args: Array<String>) {
-    runApplication<IitmoWebLab4Application>(*args)
+    runApplication<MyApplication>(*args)
 }

@@ -1,4 +1,4 @@
-package org.bogdans.iitmo_web_lab_4
+package org.bogdans
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
