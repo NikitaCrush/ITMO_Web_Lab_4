@@ -11,7 +11,7 @@ export const StyledTableContainer = styled(TableContainer)`
   background-color: #333333;
   overflow-y: auto;
 
-  /* Desctop */
+  /* Desktop */
   @media (min-width: 1255px) {
     float: right;
     margin-top: 20px;

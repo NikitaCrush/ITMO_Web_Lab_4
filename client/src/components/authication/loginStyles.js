@@ -10,7 +10,7 @@ export const Container = styled('div')`
   margin-top: 60px;
   width: 40%;
 
-    /* Desctop */
+    /* Desktop */
   @media (min-width: 1255px) {
     width: 35%;
     margin-top: 60px;
@@ -69,7 +69,7 @@ export const StyledButton = styled(Button)`
   font-size: 16px;
   margin-bottom: 10px;
 
-    /* Desctop */
+    /* Desktop */
   @media (min-width: 1255px) {
     font-size: 16px;
     margin-bottom: 10px;
@@ -106,7 +106,7 @@ export const Message = styled('div')`
   margin-top: 25px;
   padding: 10px;
     
-    /* Desctop */
+    /* Desktop */
   @media (min-width: 1255px) {
     border-radius: 6px;
     margin-top: 15px;

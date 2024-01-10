@@ -9,7 +9,7 @@ export const Container = styled('div')`
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  /* Desctop */
+  /* Desktop */
   @media (min-width: 1255px) {
     margin-top: 7px;
   }
@@ -35,7 +35,7 @@ export const StyledFormControl = styled(FormControl)`
   &:hover {
     color: #212121;
   }
-  /* Desctop */
+  /* Desktop */
   @media (min-width: 1255px) {
     margin-bottom: 5px;
   }
@@ -137,7 +137,7 @@ export const StyledButton = styled(Button)`
   font-size: 12px;
   margin-bottom: 5px;;
   
-  /* Desctop */
+  /* Desktop */
   @media (min-width: 1255px) {
     font-size: 14px;
     margin-bottom: 10px;
@@ -174,7 +174,7 @@ export const Message = styled('div')`
   margin-top: 10px;
   padding: 10px;
   
-  /* Desctop */
+  /* Desktop */
   @media (min-width: 1255px) {
     margin-top: 10px;
     font-size: 12px;
