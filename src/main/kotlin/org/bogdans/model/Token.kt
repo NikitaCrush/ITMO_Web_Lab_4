@@ -4,11 +4,15 @@ import jakarta.persistence.*
 
 @Entity
 class Token(
+    @Column
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
+    @Column
     val token: String,
-    val expired: Boolean,
-    val revoked: Boolean,
-    @ManyToOne
+    @Column
+    val isExpired: Boolean,
+    @Column
+    val isRevoked: Boolean,
+    @OneToOne
     val user: User
 )
