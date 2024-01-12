@@ -2,13 +2,15 @@ package org.bogdans.model
 
 import jakarta.persistence.*
 
-@Entity(name = "\"User\"")
+@Entity
+@Table(name = "users")
 data class User(
-    @Column
-    @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
-    val id: Long,
-    @Column
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
+
+    @Column(unique = true, nullable = false)
     val username: String,
-    @Column
-    val password: String // This should be a hashed password
+
+    @Column(nullable = false)
+    val password: String
 )

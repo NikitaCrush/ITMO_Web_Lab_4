@@ -36,13 +36,17 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security:3.2.1")
     implementation("org.springframework.boot:spring-boot-starter-validation:3.0.4")
 
-    implementation("org.springframework.data:spring-data-jpa:3.1.5")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.4")
+//    implementation("org.springframework.boot:spring-boot-data-jpa")
+
     implementation ("org.springframework.boot:spring-boot-starter-data-jdbc")
 
 
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.0")
     developmentOnly("org.springframework.boot:spring-boot-devtools:3.0.4")
     runtimeOnly("org.springframework.boot:spring-boot-starter-tomcat:3.1.0")
+    implementation("org.springframework.security:spring-security-crypto:6.0.2")
+
 
 
 
