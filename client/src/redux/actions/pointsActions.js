@@ -8,7 +8,7 @@ export const sendPoints = (x, y, r) => {
     return async function (dispatch) {
         try {
             const response = await axios.post(
-                `http://localhost:8080/points`,
+                `http://localhost:8080/api/points`,
                 {x, y, r},
                 {withCredentials: true, headers: {'Content-Type': 'application/json'}}
             );
