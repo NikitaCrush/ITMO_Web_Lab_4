@@ -16,6 +16,7 @@ class PointController(private val pointService: PointService) {
         @RequestParam r: Double,
         @RequestParam currentTime: String
     ): ResponseEntity<Point> {
+        // todo: user should see only points owned by him
         val point = pointService.processPoint(x, y, r, currentTime)
         return ResponseEntity.ok(point)
     }

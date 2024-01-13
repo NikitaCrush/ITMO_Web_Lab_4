@@ -17,7 +17,7 @@ class JwtTokenUtil {
         return Jwts.builder()
             .setSubject(userDetails.username)
             .setIssuedAt(Date())
-            .setExpiration(Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours validity
+            .setExpiration(Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // todo: move to reasonably named constant // 10 hours validity
             .signWith(Keys.hmacShaKeyFor(secretKeyBytes), SignatureAlgorithm.HS256)
             .compact()
     }

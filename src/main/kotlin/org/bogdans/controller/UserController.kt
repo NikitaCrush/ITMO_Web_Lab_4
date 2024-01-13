@@ -23,12 +23,12 @@ class UserController(
 
     @PostMapping("/register")
     fun registerUser(@RequestBody userDto: UserRegistrationDto): ResponseEntity<Any> {
-        userService.registerUser(userDto)
+        userService.registerUser(userDto) // what if duplicate key exceiption?
         return ResponseEntity.ok().build()
     }
 
     @PostMapping("/authenticate")
-    fun createAuthenticationToken(@RequestBody userDto: UserRegistrationDto): ResponseEntity<Any> {
+    fun createAuthenticationToken(@RequestBody userDto: UserRegistrationDto): ResponseEntity<Any> /* don't use <Any> */ {
         try {
             authenticationManager.authenticate(UsernamePasswordAuthenticationToken(userDto.username, userDto.password))
             val userDetails = userDetailsService.loadUserByUsername(userDto.username)
