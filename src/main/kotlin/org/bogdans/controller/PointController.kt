@@ -24,7 +24,8 @@ class PointController(
         principal: Principal
     ): ResponseEntity<Point> {
         val username = principal.name
-        val user = userRepository.findByUsername(username) ?: throw UsernameNotFoundException("User not found: $username")
+        val user =
+            userRepository.findByUsername(username) ?: throw UsernameNotFoundException("User not found: $username")
 
         val point = pointService.processPoint(x, y, r, currentTime, user)
         return ResponseEntity.ok(point)
