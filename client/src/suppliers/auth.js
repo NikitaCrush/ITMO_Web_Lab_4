@@ -39,20 +39,18 @@ export function useAuth() {
 
     const logout = async () => {
         try {
-            const response = await axios.post(
+            await axios.post(
                 'http://localhost:8080/api/logout',
                 null,
                 { withCredentials: true }
             );
             localStorage.removeItem('jwtToken'); // Remove the JWT token from local storage
-
-            console.log("Logout successful", response.data);
-            return response.data;
+            console.log("Logout successful");
         } catch (error) {
             console.error('Failed to logout:', error.response.data);
-            throw new Error(error.response.data);
         }
     };
+
 
     return { register, login, logout };
 }

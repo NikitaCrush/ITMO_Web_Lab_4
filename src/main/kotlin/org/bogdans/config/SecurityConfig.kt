@@ -53,8 +53,8 @@ class SecurityConfig {
             .csrf { csrf -> csrf.disable() }
             .authorizeHttpRequests { request ->
                 request
-                    .requestMatchers("/api/register").permitAll()
-                    .requestMatchers("/api/authenticate").permitAll()
+                    .requestMatchers("/api/register", "/api/authenticate", "/api/logout").permitAll()
+
                     .anyRequest().authenticated()
             }
 

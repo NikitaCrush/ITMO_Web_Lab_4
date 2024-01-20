@@ -1,6 +1,7 @@
 package org.bogdans.controller
 
 import org.bogdans.dto.AuthenticationResponse
+import org.bogdans.dto.MessageResponse
 import org.bogdans.dto.UserRegistrationDto
 import org.bogdans.service.UserService
 import org.bogdans.util.JwtTokenUtil
@@ -45,6 +46,12 @@ class UserController(
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(AuthenticationResponse("", "Authentication failed."))
         }
+    }
+
+    @PostMapping("/logout")
+    fun logout(): ResponseEntity<MessageResponse> {
+        // No server-side operation needed for JWT logout
+        return ResponseEntity.ok(MessageResponse("Logout successful. Please delete your token client-side."))
     }
 
 
