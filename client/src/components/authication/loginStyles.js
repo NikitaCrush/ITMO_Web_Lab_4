@@ -33,24 +33,24 @@ export const TextFieldStyle = styled(TextField)`
   margin-bottom: 5px;
   font-family: Lato, Montserrat, sans-serif;
 
-  & .MuiOutlinedInput-root {
-    & fieldset {
-      border-color: #212121;
-    }
-    &:hover fieldset {
-      border-color: #212121;
-    }
-    &.Mui-focused fieldset {
-      border-color: #212121;
-    }
-    & input {
-      color: #212121;
-      background-color: white;
-    }
-    & .MuiInputLabel-root {
-      color: #212121 !important;
-    }
-  }
+//   &  {
+//     & fieldset {
+//       border-color: #212121;
+//     }
+//     &:hover fieldset {
+//       border-color: #212121;
+//     }
+//     &.Mui-focused fieldset {
+//       border-color: #212121;
+//     }
+//     & input {
+//       color: #212121;
+//       background-color: white;
+//     }
+//     & .MuiInputLabel-root {
+//       color: #212121 !important;
+//     }
+//   }
 `;
 
 export const ButtonContainer = styled(`div`)`

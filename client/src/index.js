@@ -1,12 +1,14 @@
+import { createRoot } from 'react-dom/client';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import './index.css';
 import App from './components/authPage/App';
-const root = document.getElementById('root');
-const rootElement = ReactDOM.createRoot(root);
-rootElement.render(
+
+
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
     <React.StrictMode>
         <Provider store={store}>
             <App />
