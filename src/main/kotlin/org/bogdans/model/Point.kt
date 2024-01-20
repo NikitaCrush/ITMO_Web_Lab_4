@@ -16,5 +16,8 @@ class Point(
     @Column
     val result: Boolean,
     @Column(name = "\"current_time\"")
-    val currentTime: String
+    val currentTime: String,
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    val user: User
 )

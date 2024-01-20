@@ -9,15 +9,15 @@ import java.util.*
 
 @Service
 class JwtTokenUtil {
-    // Replace with a strong, randomly generated secret key
     private val secretKeyBytes = Keys.secretKeyFor(SignatureAlgorithm.HS256).encoded
     private val jwtParser = Jwts.parserBuilder().setSigningKey(secretKeyBytes).build()
+    private val tenHoursValidity = 1000 * 60 * 60 * 10
 
     fun generateToken(userDetails: UserDetails): String {
         return Jwts.builder()
             .setSubject(userDetails.username)
             .setIssuedAt(Date())
-            .setExpiration(Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // todo: move to reasonably named constant // 10 hours validity
+            .setExpiration(Date(System.currentTimeMillis() + tenHoursValidity))
             .signWith(Keys.hmacShaKeyFor(secretKeyBytes), SignatureAlgorithm.HS256)
             .compact()
     }

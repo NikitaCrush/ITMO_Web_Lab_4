@@ -1,9 +1,10 @@
 package org.bogdans.controller
 
+import org.bogdans.dto.AuthenticationResponse
 import org.bogdans.dto.UserRegistrationDto
 import org.bogdans.service.UserService
 import org.bogdans.util.JwtTokenUtil
-import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
@@ -23,22 +24,28 @@ class UserController(
 
     @PostMapping("/register")
     fun registerUser(@RequestBody userDto: UserRegistrationDto): ResponseEntity<Any> {
-        userService.registerUser(userDto) // what if duplicate key exceiption?
-        return ResponseEntity.ok().build()
-    }
-
-    @PostMapping("/authenticate")
-    fun createAuthenticationToken(@RequestBody userDto: UserRegistrationDto): ResponseEntity<Any> /* don't use <Any> */ {
-        try {
-            authenticationManager.authenticate(UsernamePasswordAuthenticationToken(userDto.username, userDto.password))
-            val userDetails = userDetailsService.loadUserByUsername(userDto.username)
-            val token = jwtTokenUtil.generateToken(userDetails)
-            return ResponseEntity.ok(mapOf("token" to token))
-        } catch (ex: Exception) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        return try {
+            userService.registerUser(userDto)
+            ResponseEntity.ok().build()
+        } catch (e: DataIntegrityViolationException) {
+            ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists")
         }
     }
 
+
+    @PostMapping("/authenticate")
+    fun createAuthenticationToken(@RequestBody userDto: UserRegistrationDto): ResponseEntity<AuthenticationResponse> {
+        return try {
+            authenticationManager.authenticate(UsernamePasswordAuthenticationToken(userDto.username, userDto.password))
+            val userDetails = userDetailsService.loadUserByUsername(userDto.username)
+            val token = jwtTokenUtil.generateToken(userDetails)
+            ResponseEntity.ok(AuthenticationResponse(token))
+        } catch (ex: Exception) {
+            ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(AuthenticationResponse("", "Authentication failed."))
+        }
+    }
 
 
 }

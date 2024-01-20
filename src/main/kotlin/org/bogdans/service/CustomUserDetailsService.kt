@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.User as SpringUser
 
 
 @Service
-class CustomUserDetailsService(private val userRepository: UserRepository): UserDetailsService {
+class CustomUserDetailsService(private val userRepository: UserRepository) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails {
         val user: User = userRepository.findByUsername(username)
             ?: throw UsernameNotFoundException("User not found with username: $username")
