@@ -6,17 +6,25 @@ export const logoutAuth = () => ({type: 'LOGOUT'})
 export const sendPoints = (x, y, r) => {
     return async function (dispatch) {
         try {
+            const token = localStorage.getItem("jwtToken");
+            const currentTime = new Date().toISOString(); // Get current time in ISO format
             const response = await axios.post(
                 `http://localhost:8080/api/points`,
-                {x, y, r},
-                {withCredentials: true, headers: {'Content-Type': 'application/json'}}
+                JSON.stringify({ x, y, r, currentTime }), // Include currentTime
+                {
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    }
+                }
             );
-            if (response.data.success) {
+            if (response.status === 200) {
                 dispatch({
                     type: 'ADD_POINTS',
-                    payload: {x, y, r}
+                    payload: response.data
                 });
-                console.log(`Point successfully saved`);
+                console.log(`Point successfully saved:`, response.data);
             }
         } catch (error) {
             console.error('Error sending point:', error);
@@ -24,26 +32,8 @@ export const sendPoints = (x, y, r) => {
     };
 };
 
-// export const getPoints = (r) => {
-//     return async function (dispatch) {
-//         try {
-//             const response = await axios.get(
-//                 `http://localhost:8080/points?r=${r}`,
-//                 {withCredentials: true}
-//             );
-//
-//             if (response.data.success) {
-//                 dispatch({
-//                     type: 'GET_POINTS_SUCCESS',
-//                     payload: response.data
-//                 });
-//                 console.log('Points successfully retrieved:', response.data);
-//             }
-//         } catch (error) {
-//             console.log("Error getting points")
-//         }
-//     };
-// };
+
+
 export const getPointsForTable = () => {
     return async function (dispatch) {
         try {
