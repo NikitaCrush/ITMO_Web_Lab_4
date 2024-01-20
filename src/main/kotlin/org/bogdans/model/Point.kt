@@ -4,7 +4,9 @@ import jakarta.persistence.*
 
 @Entity
 class Point(
+    @Column
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long,
     @Column
     val x: Double,
     @Column
