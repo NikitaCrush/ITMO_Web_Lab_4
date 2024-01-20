@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {setX, setY, setR, sendPoints, resetPoints, getPoints, logoutAuth} from "../../redux/actions/pointsActions";
+import {setX, setY, setR, sendPoints, resetPoints, getPointsForTable, logoutAuth} from "../../redux/actions/pointsActions";
 import {StyledFormControl, StyledFormLabel, StyledRadioGroup, StyledFormControlLabel, StyledRadio, Container, StyledTextField, StyledButton, Message, ButtonContainer,} from "./inputsStyles";
 import React, {useEffect, useState} from "react";
 import {useAuth} from "../../suppliers/auth";
@@ -47,7 +47,7 @@ const Inputs = () => {
             changeR(event.target.value);
             setIsRadiusSelected(true);
             dispatch(setR(event.target.value));
-            await dispatch(getPoints(parseFloat(event.target.value)));
+            await dispatch(getPointsForTable(parseFloat(event.target.value)));
         }
     };
     const handleSubmit = async () => {
@@ -58,7 +58,7 @@ const Inputs = () => {
             }
             setMessage("");
             dispatch(sendPoints(x, y, r));
-            await dispatch(getPoints(r));
+            await dispatch(getPointsForTable(r));
         } catch (error) {
             console.error("Error:", error);
         }
