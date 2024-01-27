@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPointsForTable } from '../../redux/actions/pointsActions';
-import { StyledTableContainer, StyledTable, StyledTableRow, StyledTableCell, } from './tableStyles';
-import { Paper, TableBody, TableHead } from "@mui/material";
+import {getPointsForTable} from '../../redux/actions/pointsActions';
+import {StyledTableContainer, StyledTable, StyledTableRow, StyledTableCell, StyledButton,} from './tableStyles';
+import {Paper, TableBody, TableHead} from "@mui/material";
 
 const PointsTable = () => {
     const dispatch = useDispatch();
@@ -19,31 +19,38 @@ const PointsTable = () => {
         })();
     }, [dispatch, pointsWithR]);
 
+    console.log(points);
+
     return (
-        <StyledTableContainer component={Paper}>
-            <StyledTable>
-                <TableHead>
-                    <StyledTableRow>
-                        <StyledTableCell align="center">X</StyledTableCell>
-                        <StyledTableCell align="center">Y</StyledTableCell>
-                        <StyledTableCell align="center">R</StyledTableCell>
-                        <StyledTableCell align="center">Result</StyledTableCell>
-                        <StyledTableCell align="center">Time</StyledTableCell>
-                    </StyledTableRow>
-                </TableHead>
-                <TableBody>
-                    {points.map((point, index) => (
-                        <StyledTableRow key={index}>
-                            <StyledTableCell align="center">{point.x}</StyledTableCell>
-                            <StyledTableCell align="center">{point.y}</StyledTableCell>
-                            <StyledTableCell align="center">{point.r}</StyledTableCell>
-                            <StyledTableCell align="center">{point.result ? "true" : "false"}</StyledTableCell>
-                            <StyledTableCell align="center">{point.time}</StyledTableCell>
+        <Paper>
+            <StyledTableContainer component={Paper}>
+                <StyledTable>
+                    <TableHead>
+                        <StyledTableRow>
+                            <StyledTableCell align="center">X</StyledTableCell>
+                            <StyledTableCell align="center">Y</StyledTableCell>
+                            <StyledTableCell align="center">R</StyledTableCell>
+                            <StyledTableCell align="center">Result</StyledTableCell>
+                            <StyledTableCell align="center">Time</StyledTableCell>
                         </StyledTableRow>
-                    ))}
-                </TableBody>
-            </StyledTable>
-        </StyledTableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {points.map((point, index) => (
+                            <StyledTableRow key={index}>
+                                <StyledTableCell align="center">{point.x}</StyledTableCell>
+                                <StyledTableCell align="center">{point.y}</StyledTableCell>
+                                <StyledTableCell align="center">{point.r}</StyledTableCell>
+                                <StyledTableCell align="center">{point.result ? "true" : "false"}</StyledTableCell>
+                                <StyledTableCell align="center">{point.time}</StyledTableCell>
+                            </StyledTableRow>
+                        ))}
+                    </TableBody>
+                </StyledTable>
+            </StyledTableContainer>
+            {/*<StyledButton variant="contained" onClick={() => reset()}>*/}
+            {/*    Reset Form*/}
+            {/*</StyledButton>*/}
+        </Paper>
     );
 };
 

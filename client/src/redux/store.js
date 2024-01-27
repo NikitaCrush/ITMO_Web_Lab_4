@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
 import {thunk} from 'redux-thunk';
-
 import pointReducer from "./reducer/pointsReducer";
 
 const loadState = () => {
@@ -14,6 +13,7 @@ const loadState = () => {
         return undefined;
     }
 };
+
 const store = createStore(pointReducer, loadState(), applyMiddleware(thunk));
 store.subscribe(() => {
     try {

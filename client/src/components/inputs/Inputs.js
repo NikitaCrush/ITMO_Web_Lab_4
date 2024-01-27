@@ -1,7 +1,15 @@
 import {useDispatch, useSelector} from "react-redux";
-import {setX, setY, setR, sendPoints, resetPoints, getPointsForTable, logoutAuth} from "../../redux/actions/pointsActions";
+import {
+    setX,
+    setY,
+    setR,
+    sendPoints,
+    resetPoints,
+    getPoints,
+    logoutAuth,
+} from "../../redux/actions/pointsActions";
 import {StyledFormControl, StyledFormLabel, StyledRadioGroup, StyledFormControlLabel, StyledRadio, Container, StyledTextField, StyledButton, Message, ButtonContainer,} from "./inputsStyles";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useAuth} from "../../suppliers/auth";
 import {useNavigate} from "react-router-dom";
 
@@ -16,7 +24,9 @@ const Inputs = () => {
     const navigate = useNavigate();
     const auth = useAuth();
 
-
+    useEffect(() => {
+        updateSVG();
+    }, [points]);
 
     const handleXChange = (event) => {
         if (event.target.value === "") {
@@ -45,7 +55,7 @@ const Inputs = () => {
             changeR(event.target.value);
             setIsRadiusSelected(true);
             dispatch(setR(event.target.value));
-            await dispatch(getPointsForTable(parseFloat(event.target.value)));
+            await dispatch(getPoints(parseFloat(event.target.value)));
         }
     };
     const handleSubmit = async () => {
@@ -56,12 +66,19 @@ const Inputs = () => {
             }
             setMessage("");
             dispatch(sendPoints(x, y, r));
-            await dispatch(getPointsForTable(r));
+            await dispatch(getPoints(r));
         } catch (error) {
             console.error("Error:", error);
         }
     };
 
+    const updateSVG = () => {
+        clearSVG();
+        points.forEach((point) => {
+            const {x, y, r} = point;
+            calculator(x, y, r);
+        });
+    };
 
     const handleLogout = async () => {
         clearSVG();
@@ -78,34 +95,26 @@ const Inputs = () => {
         }, 3000);
     };
 
-
-    const check = useCallback((x, y, r) => {
+    let flag;
+    function check(x, y, r) {
         const isInsideCircle = (x, y, radius) => x * x + y * y <= radius * radius;
         const isInsideRectangle = (x, y, height, width) => Math.abs(x) <= width && Math.abs(y) <= height;
         const isInsideRhombus = (x, y, height, width) => Math.abs(x) / width + Math.abs(y) / height <= 1;
-        return (x >= 0 && y >= 0 && isInsideCircle(x, y, r / 2)) ||
+        flag = (x <= 0 && y >= 0 && isInsideCircle(x, y, r / 2)) ||
             (x >= 0 && y <= 0 && isInsideRhombus(x, y, r / 2, r / 2)) ||
-            (x <= 0 && y <= 0 && isInsideRectangle(x, y, r, r));
-    }, []); // Removed flag and returned the result directly
-
-    const calculator = useCallback((x, y, r) => {
+            (x <= 0 && y <= 0 && isInsideRectangle(x, y, r, r / 2));
+    }
+    const calculator = (x, y, r) => {
         const width = 400;
         const height = 400;
         const centerX = width / 2;
         const centerY = height / 2;
         const cx = centerX + x * (width / (3.3 * r));
         const cy = centerY - y * (height / (3.3 * r));
-        const flag = check(x, y, r); // Use the returned value from check
+        check(x, y, r);
         setRound(cx, cy, flag);
-    }, [check]); // Add setRound to the dependencies if it uses external state/props
+    }
 
-    const updateSVG = useCallback(() => {
-        clearSVG();
-        points.forEach((point) => {
-            const {x, y, r} = point;
-            calculator(x, y, r);
-        });
-    }, [points, calculator]);
 
     useEffect(() => {
         const svg = document.querySelector("svg");
@@ -149,9 +158,9 @@ const Inputs = () => {
         circle.setAttribute("cy", cy);
         circle.setAttribute("r", "5");
         if (flag) {
-            circle.setAttribute("fill", "beige");
+            circle.setAttribute("fill", "green");
         } else {
-            circle.setAttribute("fill", "black");
+            circle.setAttribute("fill", "red");
         }
         svg.appendChild(circle);
     };
@@ -163,10 +172,6 @@ const Inputs = () => {
             svg.removeChild(circle);
         });
     }
-
-    useEffect(() => {
-        updateSVG();
-    }, [updateSVG, check, calculator]);
 
     function changeR(r) {
         const elements = {
@@ -187,7 +192,8 @@ const Inputs = () => {
         }
     }
 
-    return (
+
+return (
         <Container>
             <StyledFormControl>
                 <StyledFormLabel component="legend">X: </StyledFormLabel>
@@ -240,7 +246,7 @@ const Inputs = () => {
             </StyledFormControl>
             <ButtonContainer>
                 <StyledButton onClick={handleSubmit}>Send</StyledButton>
-                <StyledButton onClick={handleDelete}>Clear</StyledButton>
+                <StyledButton onClick={handleDelete}>Clear plane</StyledButton>
                 <StyledButton onClick={handleLogout}>Logout</StyledButton>
             </ButtonContainer>
             {message && <Message>{message}</Message>}

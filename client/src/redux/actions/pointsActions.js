@@ -32,7 +32,26 @@ export const sendPoints = (x, y, r) => {
     };
 };
 
+export const getPoints = (r) => {
+    return async function (dispatch) {
+        try {
+            const response = await axios.get(
+                `http://localhost:8080/points?r=${r}`,
+                {withCredentials: true}
+            );
 
+            if (response.data.success) {
+                dispatch({
+                    type: 'GET_POINTS_SUCCESS',
+                    payload: response.data
+                });
+                console.log('Points successfully retrieved:', response.data);
+            }
+        } catch (error) {
+            console.log("Error getting points")
+        }
+    };
+};
 
 export const getPointsForTable = () => {
     return async function (dispatch) {
