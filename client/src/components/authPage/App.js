@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import React from 'react';
 import LoginPage from '../authication/Login';
 import MainPage from '../mainPage/MainPage';
 import Intro from '../commandIntro/Intro';

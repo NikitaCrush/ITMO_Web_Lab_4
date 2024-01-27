@@ -1,25 +1,24 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {getPointsForTable} from '../../redux/actions/pointsActions';
-import {StyledTableContainer, StyledTable, StyledTableRow, StyledTableCell, StyledButton,} from './tableStyles';
+import {getPoints} from '../../redux/actions/pointsActions';
+import {StyledTableContainer, StyledTable, StyledTableRow, StyledTableCell } from './tableStyles';
 import {Paper, TableBody, TableHead} from "@mui/material";
 
 const PointsTable = () => {
     const dispatch = useDispatch();
-    const points = useSelector(state => state.pointsForTable);
     const pointsWithR = useSelector(state => state.points);
 
     useEffect(() => {
         (async () => {
             try {
-                await dispatch(getPointsForTable());
+                await dispatch(getPoints());
             } catch (error) {
                 console.error('Error loading points for the table', error);
             }
         })();
     }, [dispatch, pointsWithR]);
 
-    console.log(points);
+    console.log(pointsWithR);
 
     return (
         <Paper>
@@ -35,7 +34,7 @@ const PointsTable = () => {
                         </StyledTableRow>
                     </TableHead>
                     <TableBody>
-                        {points.map((point, index) => (
+                        {pointsWithR.map((point, index) => (
                             <StyledTableRow key={index}>
                                 <StyledTableCell align="center">{point.x}</StyledTableCell>
                                 <StyledTableCell align="center">{point.y}</StyledTableCell>

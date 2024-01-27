@@ -3,7 +3,6 @@ const initialState = {
     y: null,
     r: '0',
     points: [],
-    pointsForTable: [],
     authStatus: false,
 };
 const pointReducer = (state = initialState, action) => {
@@ -21,12 +20,10 @@ const pointReducer = (state = initialState, action) => {
             };
         case 'GET_POINTS_SUCCESS':
             return {...state, points: action.payload.points};
-        case 'GET_POINTS_FOR_TABLE_SUCCESS':
-            return {...state, pointsForTable: action.payload.points};
         case 'RESET_ALL_POINTS':
-            return {...state, points: [], pointsForTable: []};
+            return {...state, points: []};
         case 'LOGOUT':
-            return {...state, points: [], authStatus: false, pointsForTable: []};
+            return {...state, points: [], authStatus: false};
         case 'LOGIN':
             return{...state, authStatus: true};
         default:

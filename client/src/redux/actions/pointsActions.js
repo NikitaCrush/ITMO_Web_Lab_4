@@ -53,26 +53,6 @@ export const getPoints = (r) => {
     };
 };
 
-export const getPointsForTable = () => {
-    return async function (dispatch) {
-        try {
-            const response = await axios.get(
-                `http://localhost:8080/points?r=${0}`,
-                {withCredentials: true}
-            );
-
-            if (response.data.success) {
-                dispatch({
-                    type: 'GET_POINTS_FOR_TABLE_SUCCESS',
-                    payload: response.data
-                });
-                console.log('Points successfully retrieved for the table:', response.data);
-            }
-        } catch (error) {
-            console.log("Error getting points for the table")
-        }
-    };
-};
 export const resetPoints = () => {
     return async function (dispatch) {
         try {
