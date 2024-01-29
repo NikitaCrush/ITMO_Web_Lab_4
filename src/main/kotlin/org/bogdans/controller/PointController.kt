@@ -28,4 +28,20 @@ class PointController(
         val point = pointService.processPoint(pointDto.x, pointDto.y, pointDto.r, pointDto.currentTime, user)
         return ResponseEntity.ok(point)
     }
+
+    @PostMapping("/points/clear")
+    fun clearUserPoints(principal: Principal): ResponseEntity<Any> {
+        val username = principal.name
+        val user = userRepository.findByUsername(username) ?: throw UsernameNotFoundException("User not found: $username")
+        pointService.clearPointsForUser(user)
+        return ResponseEntity.ok("Points cleared successfully.")
+    }
+
+    @GetMapping("/points")
+    fun getUserPoints(principal: Principal): ResponseEntity<List<Point>> {
+        val username = principal.name
+        val user = userRepository.findByUsername(username) ?: throw UsernameNotFoundException("User not found: $username")
+        val points = pointService.getPointsForUser(user)
+        return ResponseEntity.ok(points)
+    }
 }

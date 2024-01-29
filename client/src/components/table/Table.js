@@ -40,7 +40,7 @@ const PointsTable = () => {
                                 <StyledTableCell align="center">{point.y}</StyledTableCell>
                                 <StyledTableCell align="center">{point.r}</StyledTableCell>
                                 <StyledTableCell align="center">{point.result ? "true" : "false"}</StyledTableCell>
-                                <StyledTableCell align="center">{point.time}</StyledTableCell>
+                                <StyledTableCell align="center">{new Date(point.currentTime).toLocaleDateString()}</StyledTableCell>
                             </StyledTableRow>
                         ))}
                     </TableBody>

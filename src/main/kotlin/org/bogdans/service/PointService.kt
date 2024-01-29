@@ -14,4 +14,13 @@ class PointService(private val pointRepository: PointRepository) {
         val point = Point(0, x, y, r, result, currentTime, user)
         return pointRepository.save(point)
     }
+
+    fun clearPointsForUser(user: User) {
+        val points = pointRepository.findAllByUser(user)
+        pointRepository.deleteAll(points)
+    }
+
+    fun getPointsForUser(user: User): List<Point> {
+        return pointRepository.findAllByUser(user)
+    }
 }

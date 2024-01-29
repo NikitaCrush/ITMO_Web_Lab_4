@@ -56,19 +56,24 @@ export const getPoints = (r) => {
 export const resetPoints = () => {
     return async function (dispatch) {
         try {
+            const token = localStorage.getItem("jwtToken");
             const response = await axios.post(
-                `http://localhost:8080/points/reset`,
+                `http://localhost:8080/api/points/clear`,
                 null,
-                {withCredentials: true}
+                {
+                    withCredentials: true,
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                }
             );
-            if (response.data.success) {
-                dispatch({
-                    type: 'RESET_ALL_POINTS'
-                })
-                console.log('Points successfully reset');
+            if (response.status === 200) {
+                dispatch({ type: 'RESET_ALL_POINTS' });
+                console.log('Points cleared successfully');
             }
         } catch (error) {
-            console.error('Error resetting points:', error);
+            console.error('Error clearing points:', error);
         }
-    }
+    };
 };
+
