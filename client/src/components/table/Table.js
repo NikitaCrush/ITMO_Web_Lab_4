@@ -6,7 +6,7 @@ import {Paper, TableBody, TableHead} from "@mui/material";
 
 const PointsTable = () => {
     const dispatch = useDispatch();
-    const pointsWithR = useSelector(state => state.points);
+    const points = useSelector((state) => state.points); // Ensure this is the correct path to your points in the state
 
     useEffect(() => {
         (async () => {
@@ -16,9 +16,8 @@ const PointsTable = () => {
                 console.error('Error loading points for the table', error);
             }
         })();
-    }, [dispatch, pointsWithR]);
+    }, [dispatch]);
 
-    console.log(pointsWithR);
 
     return (
         <Paper>
@@ -34,13 +33,13 @@ const PointsTable = () => {
                         </StyledTableRow>
                     </TableHead>
                     <TableBody>
-                        {pointsWithR.map((point, index) => (
+                        {points && points.map((point, index) => (
                             <StyledTableRow key={index}>
                                 <StyledTableCell align="center">{point.x}</StyledTableCell>
                                 <StyledTableCell align="center">{point.y}</StyledTableCell>
                                 <StyledTableCell align="center">{point.r}</StyledTableCell>
                                 <StyledTableCell align="center">{point.result ? "true" : "false"}</StyledTableCell>
-                                <StyledTableCell align="center">{new Date(point.currentTime).toLocaleDateString()}</StyledTableCell>
+                                <StyledTableCell align="center">{point.currentTime ? new Date(point.currentTime).toLocaleString() : ""}</StyledTableCell>
                             </StyledTableRow>
                         ))}
                     </TableBody>

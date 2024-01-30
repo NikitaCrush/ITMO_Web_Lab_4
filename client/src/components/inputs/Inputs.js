@@ -74,10 +74,12 @@ const Inputs = () => {
 
     const updateSVG = () => {
         clearSVG();
-        points.forEach((point) => {
-            const {x, y, r} = point;
-            calculator(x, y, r);
-        });
+        if (points && Array.isArray(points)) {
+            points.forEach((point) => {
+                const { x, y, r } = point;
+                calculator(x, y, r);
+            });
+        }
     };
 
     const handleLogout = async () => {
