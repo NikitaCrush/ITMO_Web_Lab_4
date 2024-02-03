@@ -1,3 +1,9 @@
+export function ClearStore() {
+    return {
+        type: 'DEFAULT_STATE',
+    };
+}
+
 const initialState = {
     x: null,
     y: null,
@@ -21,7 +27,7 @@ const pointReducer = (state = initialState, action) => {
         case 'GET_POINTS_SUCCESS':
             return {
                 ...state,
-                points: action.payload // Ensure that action.payload is an array
+                points: action.payload
             };
         case 'RESET_ALL_POINTS':
             return {
@@ -32,6 +38,8 @@ const pointReducer = (state = initialState, action) => {
             return {...state, points: [], authStatus: false};
         case 'LOGIN':
             return{...state, authStatus: true};
+        case 'DEFAULT_STATE':
+            return {...state, r: action.payload};
         default:
             return state;
     }

@@ -7,10 +7,10 @@ export const sendPoints = (x, y, r) => {
     return async function (dispatch) {
         try {
             const token = localStorage.getItem("jwtToken");
-            const currentTime = new Date().toISOString(); // Get current time in ISO format
+            const currentTime = new Date().toISOString();
             const response = await axios.post(
                 `http://localhost:8080/api/points`,
-                JSON.stringify({ x, y, r, currentTime }), // Include currentTime
+                JSON.stringify({ x, y, r, currentTime }),
                 {
                     withCredentials: true,
                     headers: {
@@ -37,7 +37,7 @@ export const getPoints = () => {
         try {
             const token = localStorage.getItem("jwtToken");
             const response = await axios.get(
-                `http://localhost:8080/api/points`, // Ensure correct endpoint
+                `http://localhost:8080/api/points`,
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -49,7 +49,7 @@ export const getPoints = () => {
 
             dispatch({
                 type: 'GET_POINTS_SUCCESS',
-                payload: response.data // Make sure this is the correct structure
+                payload: response.data
             });
 
             console.log('Points successfully retrieved:', response.data);

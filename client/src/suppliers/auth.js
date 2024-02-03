@@ -25,7 +25,6 @@ export function useAuth() {
                 { headers: { 'Content-Type': 'application/json' }}
             );
             if (response.data && response.data.token) {
-                // Store the JWT token in local storage or context
                 localStorage.setItem("jwtToken", response.data.token);
                 console.log('Login successful', response.data);
                 return response.data;
@@ -44,7 +43,7 @@ export function useAuth() {
                 null,
                 { withCredentials: true }
             );
-            localStorage.removeItem('jwtToken'); // Remove the JWT token from local storage
+            localStorage.removeItem('jwtToken');
             console.log("Logout successful");
         } catch (error) {
             console.error('Failed to logout:', error.response.data);

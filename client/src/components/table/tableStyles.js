@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import {TableCell, TableContainer, Table, TableRow, Button} from '@mui/material';
+import {TableCell, TableContainer, Table, TableRow, Paper} from '@mui/material';
 
 export const StyledTableContainer = styled(TableContainer)`
   max-height: 800px;
@@ -19,7 +19,7 @@ export const StyledTableContainer = styled(TableContainer)`
     max-height: 600px;
   }
   /* Tablet */
-  @media (min-width: 715px) and (max-width: 1254px) {
+  @media (min-width: 715px) and (max-width: 1255px) {
     margin-top: 5px;
     margin-right: auto;
     margin-left: auto;
@@ -41,7 +41,7 @@ export const StyledTableContainer = styled(TableContainer)`
   }
 `;
 export const StyledTable = styled(Table)`
-  color: #cccccc;
+  color: #212121 solid;
 `;
 
 export const StyledTableRow = styled(TableRow)`
@@ -54,44 +54,8 @@ export const StyledTableCell = styled(TableCell)`
   color: #cccccc;
 `;
 
-export const StyledButton = styled(Button)`
-  display: flex;
-  justify-content: space-between;
-  font-family: Lato, Montserrat, sans-serif;
-  color: #212121;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: white;
-  font-weight: bold;
-  width: auto; 
-  max-width: 80%;
-  font-size: 12px;
-  margin-bottom: 5px;;
-  
-  /* Desktop */
-  @media (min-width: 1255px) {
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-  /* Tablet */
-  @media (min-width: 715px) and (max-width: 1254px) {
-    font-size: 12px;
-    margin-bottom: 7px;
-  }
-  /* Mobile */
-  @media screen and (max-width: 715px) {
-    font-size: 12px;
-    margin-bottom: 5px;
-  }
-
-  &:hover {
-    background-color: #212121;
-    color: white;
-  }
-
-  &:active {
-    background-color: #212121;
-    color: white;
-  }
+export const StyledPaper = styled(Paper)`
+    root{
+        backgroundColor: '#4d4d4d !important',
+    },
 `;

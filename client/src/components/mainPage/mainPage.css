@@ -22,7 +22,7 @@
     }
 }
 /* Tablet */
-@media (min-width: 715px) and (max-width: 1254px) {
+@media (min-width: 715px) and (max-width: 1255px) {
     .window {
         width: 95%;
         height: 46%;

@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {getPoints} from '../../redux/actions/pointsActions';
-import {StyledTableContainer, StyledTable, StyledTableRow, StyledTableCell } from './tableStyles';
+import {StyledTableContainer, StyledTable, StyledTableRow, StyledTableCell, StyledPaper } from './tableStyles';
 import {Paper, TableBody, TableHead} from "@mui/material";
 
 const PointsTable = () => {
     const dispatch = useDispatch();
-    const points = useSelector((state) => state.points); // Ensure this is the correct path to your points in the state
+    const points = useSelector((state) => state.points);
 
     useEffect(() => {
         (async () => {
@@ -20,7 +20,7 @@ const PointsTable = () => {
 
 
     return (
-        <Paper>
+        <StyledPaper>
             <StyledTableContainer component={Paper}>
                 <StyledTable>
                     <TableHead>
@@ -45,10 +45,7 @@ const PointsTable = () => {
                     </TableBody>
                 </StyledTable>
             </StyledTableContainer>
-            {/*<StyledButton variant="contained" onClick={() => reset()}>*/}
-            {/*    Reset Form*/}
-            {/*</StyledButton>*/}
-        </Paper>
+        </StyledPaper>
     );
 };
 
