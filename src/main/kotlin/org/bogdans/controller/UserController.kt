@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.web.bind.annotation.*
 
@@ -60,6 +62,10 @@ class UserController(
             authenticationManager.authenticate(UsernamePasswordAuthenticationToken(userDto.username, userDto.password))
             val userDetails = userDetailsService.loadUserByUsername(userDto.username) // Load user details.
             val token = jwtTokenUtil.generateToken(userDetails) // Generate JWT token.
+
+            // Store the token in the database.
+            jwtTokenUtil.storeToken(token, userDetails)
+
             ResponseEntity.ok(AuthenticationResponse(token)) // Return the token in the response.
         } catch (ex: Exception) {
             // Handle authentication failure.
@@ -75,8 +81,13 @@ class UserController(
      * @return ResponseEntity indicating the result of the logout operation.
      */
     @PostMapping("/logout")
-    fun logout(): ResponseEntity<MessageResponse> {
-        // No server-side operation needed for JWT logout.
-        return ResponseEntity.ok(MessageResponse("Logout successful. Please delete your token client-side."))
+    fun logout(
+        @AuthenticationPrincipal userDetails: UserDetails,
+        @RequestHeader("Authorization") authToken: String
+    ): ResponseEntity<MessageResponse> {
+        val tokenValue = authToken.substring(7) // Remove 'Bearer ' prefix
+        jwtTokenUtil.invalidateToken(tokenValue, userDetails)
+        return ResponseEntity.ok(MessageResponse("Logout successful. Token has been invalidated."))
     }
+
 }

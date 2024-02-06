@@ -3,6 +3,9 @@ package org.bogdans.util
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
+import org.bogdans.model.Token
+import org.bogdans.repository.TokenRepository
+import org.bogdans.repository.UserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 import java.util.*
@@ -11,10 +14,14 @@ import java.util.*
  * Utility class for JWT operations such as token generation and validation.
  */
 @Service
-class JwtTokenUtil {
+class JwtTokenUtil(
+    private val tokenRepository: TokenRepository,
+    private val userRepository: UserRepository
+) {
     private val secretKeyBytes = Keys.secretKeyFor(SignatureAlgorithm.HS256).encoded
     private val jwtParser = Jwts.parserBuilder().setSigningKey(secretKeyBytes).build()
     private val tenHoursValidity = 1000 * 60 * 60 * 10
+
 
     /**
      * Generates a JWT token for the given UserDetails.
@@ -27,7 +34,10 @@ class JwtTokenUtil {
             .setSubject(userDetails.username) // Set the username as the subject of the token.
             .setIssuedAt(Date()) // Set the issue date to the current date.
             .setExpiration(Date(System.currentTimeMillis() + tenHoursValidity)) // Set the expiration date.
-            .signWith(Keys.hmacShaKeyFor(secretKeyBytes), SignatureAlgorithm.HS256) // Sign the token with HS256 algorithm and secret key.
+            .signWith(
+                Keys.hmacShaKeyFor(secretKeyBytes),
+                SignatureAlgorithm.HS256
+            ) // Sign the token with HS256 algorithm and secret key.
             .compact() // Compact it to a URL-safe string.
     }
 
@@ -48,7 +58,7 @@ class JwtTokenUtil {
      * @param token String JWT token
      * @return Boolean token expiration status
      */
-    private fun isTokenExpired(token: String): Boolean {
+    fun isTokenExpired(token: String): Boolean {
         // Parse the token and check if the current date is after the expiration date.
         val expiration = jwtParser.parseClaimsJws(token).body.expiration
         return expiration.before(Date())
@@ -62,4 +72,29 @@ class JwtTokenUtil {
     fun extractUsername(token: String): String {
         return jwtParser.parseClaimsJws(token).body.subject
     }
+
+    /**
+     * Stores the token in the database.
+     * @param token String JWT token
+     * @param userDetails UserDetails
+     */
+    fun storeToken(token: String, userDetails: UserDetails) {
+        val user = userRepository.findByUsername(userDetails.username)
+        val tokenEntity = Token(token = token, user = user!!)
+        tokenRepository.save(tokenEntity)
+    }
+
+    /**
+     * Invalidates the token by removing it from the database.
+     * @param token String JWT token
+     * @param userDetails UserDetails
+     */
+    fun invalidateToken(token: String, userDetails: UserDetails) {
+        val user = userRepository.findByUsername(userDetails.username)
+        val tokenEntity = tokenRepository.findByToken(token)
+        if (tokenEntity != null && tokenEntity.user == user) {
+            tokenRepository.delete(tokenEntity)
+        }
+    }
+
 }

@@ -38,17 +38,26 @@ export function useAuth() {
 
     const logout = async () => {
         try {
-            await axiosInstance.post(
-                'http://localhost:8080/api/logout',
-                null,
-                { withCredentials: true }
-            );
-            localStorage.removeItem('jwtToken');
-            console.log("Logout successful");
+            const token = localStorage.getItem("jwtToken"); // Retrieve the token from local storage
+            if (token) {
+                await axiosInstance.post(
+                    'http://localhost:8080/api/logout',
+                    null,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+                        },
+                        withCredentials: true
+                    }
+                );
+                localStorage.removeItem('jwtToken'); // Remove the token from local storage
+                console.log("Logout successful");
+            }
         } catch (error) {
             console.error('Failed to logout:', error.response.data);
         }
     };
+
 
 
     return { register, login, logout };

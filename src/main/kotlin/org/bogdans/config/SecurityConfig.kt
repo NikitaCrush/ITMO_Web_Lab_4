@@ -1,5 +1,6 @@
 package org.bogdans.config
 
+import org.bogdans.repository.TokenRepository
 import org.bogdans.security.JwtRequestFilter
 import org.bogdans.util.JwtTokenUtil
 import org.springframework.beans.factory.annotation.Autowired
@@ -35,13 +36,16 @@ class SecurityConfig {
     @Autowired
     private lateinit var userDetailsService: UserDetailsService
 
+    @Autowired
+    private lateinit var tokenRepository: TokenRepository
+
     /**
      * Bean definition for JWT Request Filter.
      * @return JwtRequestFilter
      */
     @Bean
     fun jwtRequestFilter(): JwtRequestFilter {
-        return JwtRequestFilter(jwtTokenUtil, userDetailsService)
+        return JwtRequestFilter(jwtTokenUtil, userDetailsService, tokenRepository)
     }
 
     /**
@@ -94,7 +98,8 @@ class SecurityConfig {
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
-        configuration.allowedOrigins = listOf("http://localhost:3000") // or listOf("*") for allowing all origins
+        configuration.allowedOrigins =
+            listOf("http://localhost:3000", "http://localhost:3001") // or listOf("*") for allowing all origins
         configuration.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
         configuration.allowedHeaders = listOf("*")
         configuration.allowCredentials = true

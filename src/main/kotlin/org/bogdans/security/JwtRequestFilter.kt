@@ -1,5 +1,6 @@
 package org.bogdans.security
 
+import org.bogdans.repository.TokenRepository
 import org.bogdans.util.JwtTokenUtil
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -18,7 +19,8 @@ import java.security.SignatureException
  */
 class JwtRequestFilter(
     private val jwtTokenUtil: JwtTokenUtil,
-    private val userDetailsService: UserDetailsService
+    private val userDetailsService: UserDetailsService,
+    private val tokenRepository: TokenRepository
 ) : OncePerRequestFilter() {
 
     /**
@@ -52,6 +54,13 @@ class JwtRequestFilter(
 
                 // Validate token integrity and expiration.
                 if (jwtTokenUtil.validateToken(jwtToken!!, userDetails)) {
+                    // Check if the token exists in the database.
+                    val tokenExists = tokenRepository.findByToken(jwtToken) != null
+                    if (!tokenExists) {
+                        throw SignatureException("Token not found or has been invalidated.")
+                    }
+
+
                     val usernamePasswordAuthenticationToken = UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.authorities
                     )
@@ -61,16 +70,12 @@ class JwtRequestFilter(
                 }
             }
 
-        } catch (e: SignatureException ) {
-
+        } catch (e: SignatureException) {
             // Handle the exception when token signature doesn't match. Possible token tampering or invalid token.
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: Token invalid or expired")
             return
         }
         // Continue filter chain with the next filter.
         filterChain.doFilter(request, response)
-
     }
-
-
 }
