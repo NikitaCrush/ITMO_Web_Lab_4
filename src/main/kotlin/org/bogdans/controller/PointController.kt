@@ -9,6 +9,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.web.bind.annotation.*
 import java.security.Principal
 
+/**
+ * Controller class for point-related operations.
+ *
+ * @property pointService Service for point-related business logic.
+ * @property userRepository Repository for accessing user data.
+ */
 @RestController
 @RequestMapping("/api")
 class PointController(
@@ -16,6 +22,13 @@ class PointController(
     private val userRepository: UserRepository
 ) {
 
+    /**
+     * Endpoint to process and save a new point.
+     *
+     * @param pointDto Data Transfer Object containing point data.
+     * @param principal Principal object containing user authentication information.
+     * @return ResponseEntity containing the saved Point object.
+     */
     @PostMapping("/points")
     fun processPoint(
         @RequestBody pointDto: PointDto,
@@ -29,6 +42,12 @@ class PointController(
         return ResponseEntity.ok(point)
     }
 
+    /**
+     * Endpoint to clear all points for the authenticated user.
+     *
+     * @param principal Principal object containing user authentication information.
+     * @return ResponseEntity indicating the result of the operation.
+     */
     @PostMapping("/points/clear")
     fun clearUserPoints(principal: Principal): ResponseEntity<Any> {
         val username = principal.name
@@ -37,6 +56,12 @@ class PointController(
         return ResponseEntity.ok("Points cleared successfully.")
     }
 
+    /**
+     * Endpoint to retrieve all points for the authenticated user.
+     *
+     * @param principal Principal object containing user authentication information.
+     * @return ResponseEntity containing the list of Point objects.
+     */
     @GetMapping("/points")
     fun getUserPoints(principal: Principal): ResponseEntity<List<Point>> {
         val username = principal.name
