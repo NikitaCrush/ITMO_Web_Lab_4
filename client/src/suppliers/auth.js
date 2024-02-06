@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axiosInstance from "../axiosInstance";
 
 
 export function useAuth() {
     const register = async (login, password) => {
         try {
-            const response = await axios.post(
+            const response = await axiosInstance.post(
                 'http://localhost:8080/api/register',
                 { username: login, password: password },
                 { headers: { 'Content-Type': 'application/json' }}
@@ -19,7 +19,7 @@ export function useAuth() {
 
     const login = async (login, password) => {
         try {
-            const response = await axios.post(
+            const response = await axiosInstance.post(
                 'http://localhost:8080/api/authenticate',
                 { username: login, password: password },
                 { headers: { 'Content-Type': 'application/json' }}
@@ -38,7 +38,7 @@ export function useAuth() {
 
     const logout = async () => {
         try {
-            await axios.post(
+            await axiosInstance.post(
                 'http://localhost:8080/api/logout',
                 null,
                 { withCredentials: true }

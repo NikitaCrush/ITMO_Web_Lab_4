@@ -58,8 +58,8 @@ class SecurityConfig {
                     .anyRequest().authenticated()
             }
 
-            .formLogin { formLogin -> formLogin.defaultSuccessUrl("/api/success") }
-            .logout { logout -> logout.logoutSuccessUrl("/api/logoutSuccess") }
+//            .formLogin { formLogin -> formLogin.defaultSuccessUrl("/api/success") }
+//            .logout { logout -> logout.logoutSuccessUrl("/api/logoutSuccess") }
 
         return http.build()
     }

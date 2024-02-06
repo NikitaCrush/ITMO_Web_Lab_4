@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axiosInstance from "../../axiosInstance";
+
 export const setX = (x) => ({type: 'SET_X', payload: x});
 export const setY = (y) => ({type: 'SET_Y', payload: y});
 export const setR = (r) => ({type: 'SET_R', payload: r});
@@ -8,7 +9,7 @@ export const sendPoints = (x, y, r) => {
         try {
             const token = localStorage.getItem("jwtToken");
             const currentTime = new Date().toISOString();
-            const response = await axios.post(
+            const response = await axiosInstance.post(
                 `http://localhost:8080/api/points`,
                 JSON.stringify({ x, y, r, currentTime }),
                 {
@@ -36,7 +37,7 @@ export const getPoints = () => {
     return async (dispatch) => {
         try {
             const token = localStorage.getItem("jwtToken");
-            const response = await axios.get(
+            const response = await axiosInstance.get(
                 `http://localhost:8080/api/points`,
                 {
                     headers: {
@@ -64,7 +65,7 @@ export const resetPoints = () => {
     return async function (dispatch) {
         try {
             const token = localStorage.getItem("jwtToken");
-            const response = await axios.post(
+            const response = await axiosInstance.post(
                 `http://localhost:8080/api/points/clear`,
                 null,
                 {
