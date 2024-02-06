@@ -1,43 +1,43 @@
-import { styled } from '@mui/system';
-import { Button, TextField } from "@mui/material";
+import {styled} from '@mui/system';
+import {Button, TextField} from "@mui/material";
 
 export const Container = styled('div')`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 60px;
-  width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    width: 40%;
 
     /* Desktop */
-  @media (min-width: 1255px) {
-    width: 35%;
-    margin-top: 60px;
-  }
+    @media (min-width: 1255px) {
+        width: 35%;
+        margin-top: 60px;
+    }
     /* Tablet */
-  @media (min-width: 715px) and (max-width: 1255px) {
-    width: 60%;
-    margin-top: 80px;
-  }
+    @media (min-width: 715px) and (max-width: 1255px) {
+        width: 60%;
+        margin-top: 80px;
+    }
     /* Mobile */
-  @media screen and (max-width: 715px) {
-    width: 70%;
-    margin-top: 40px;
-  }
+    @media screen and (max-width: 715px) {
+        width: 70%;
+        margin-top: 40px;
+    }
 `;
 
 export const TextFieldStyle = styled(TextField)`
-  color: #212121;
-  width: 100%;
-  margin-bottom: 5px;
-  font-family: Lato, Montserrat, sans-serif;
+    color: #212121;
+    width: 100%;
+    margin-bottom: 5px;
+    font-family: Lato, Montserrat, sans-serif;
 `;
 
 export const ButtonContainer = styled(`div`)`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     justify-content: center;
     align-items: center;
 `;
@@ -117,69 +117,54 @@ export const StyledButton = styled(Button)`
     &:hover {
         background: #0c0c0c;
     }
-    
-    //font-family: Lato, Montserrat, sans-serif;
-  //color: white;
-  //background-color: #212121;
-  //font-weight: bold;
-  //width: 100%;
-  //font-size: 16px;
-  //margin-bottom: 10px;
+
 
     /* Desktop */
-  @media (min-width: 1255px) {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
+    @media (min-width: 1255px) {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
     /* Tablet */
-  @media (min-width: 715px) and (max-width: 1254px) {
-    font-size: 14px;
-    margin-bottom: 7px;
-  }
+    @media (min-width: 715px) and (max-width: 1254px) {
+        font-size: 14px;
+        margin-bottom: 7px;
+    }
     /* Mobile */
-  @media screen and (max-width: 715px) {
-    font-size: 12px;
-    margin-bottom: 5px;
-  }
+    @media screen and (max-width: 715px) {
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
 
-  //&:hover {
-  //  background-color: white;
-  //  color: #212121;
-  //}
-  //
-  //&:active {
-  //  background-color: white;
-  //  color: #212121;
-  //}
+
 `;
 
 export const Message = styled('div')`
-  color: #212121;
-  border: 1px solid #212121;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  border-radius: 6px;
-  margin-top: 25px;
-  padding: 10px;
-    
-    /* Desktop */
-  @media (min-width: 1255px) {
+    color: #212121;
+    border: 1px solid #212121;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
     border-radius: 6px;
-    margin-top: 15px;
+    margin-top: 25px;
     padding: 10px;
-  }
+
+    /* Desktop */
+    @media (min-width: 1255px) {
+        border-radius: 6px;
+        margin-top: 15px;
+        padding: 10px;
+    }
     /* Tablet */
-  @media (min-width: 715px) and (max-width: 1254px) {
-    border-radius: 6px;
-    margin-top: 40px;
-    padding: 15px;
-  }
+    @media (min-width: 715px) and (max-width: 1254px) {
+        border-radius: 6px;
+        margin-top: 40px;
+        padding: 15px;
+    }
     /* Mobile */
-  @media screen and (max-width: 715px) {
-    border-radius: 6px;
-    margin-top: 50px;
-    padding: 17px;
-  }
+    @media screen and (max-width: 715px) {
+        border-radius: 6px;
+        margin-top: 50px;
+        padding: 17px;
+    }
 `;

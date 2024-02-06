@@ -7,6 +7,7 @@
     color: white;
     margin-bottom: 20px;
 }
+
 /* Desktop */
 @media (min-width: 1255px) {
     .intro {

@@ -9,7 +9,9 @@
     border-radius: 10px;
     margin: 20px 20px 10px;
 
-}/* Desktop */
+}
+
+/* Desktop */
 @media (min-width: 1255px) {
     .window {
         float: left;
@@ -21,6 +23,7 @@
         padding: 5px;
     }
 }
+
 /* Tablet */
 @media (min-width: 715px) and (max-width: 1255px) {
     .window {
@@ -30,6 +33,7 @@
         margin: 5px auto 10px;
     }
 }
+
 /* Mobile */
 @media (max-width: 715px) {
     .window {

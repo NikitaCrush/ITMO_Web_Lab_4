@@ -8,7 +8,18 @@ import {
     getPoints,
     logoutAuth,
 } from "../../redux/actions/pointsActions";
-import {StyledFormControl, StyledFormLabel, StyledRadioGroup, StyledFormControlLabel, StyledRadio, Container, StyledTextField, StyledButton, Message, ButtonContainer,} from "./inputsStyles";
+import {
+    StyledFormControl,
+    StyledFormLabel,
+    StyledRadioGroup,
+    StyledFormControlLabel,
+    StyledRadio,
+    Container,
+    StyledTextField,
+    StyledButton,
+    Message,
+    ButtonContainer,
+} from "./inputsStyles";
 import React, {useEffect, useState} from "react";
 import {useAuth} from "../../suppliers/auth";
 import {useNavigate} from "react-router-dom";
@@ -76,7 +87,7 @@ const Inputs = () => {
         clearSVG();
         if (points && Array.isArray(points)) {
             points.forEach((point) => {
-                const { x, y, r } = point;
+                const {x, y, r} = point;
                 calculator(x, y, r);
             });
         }
@@ -98,6 +109,7 @@ const Inputs = () => {
     };
 
     let flag;
+
     function check(x, y, r) {
         const isInsideCircle = (x, y, radius) => x * x + y * y <= radius * radius;
         const isInsideRectangle = (x, y, height, width) => Math.abs(x) <= width && Math.abs(y) <= height;
@@ -106,6 +118,7 @@ const Inputs = () => {
             (x >= 0 && y <= 0 && isInsideRhombus(x, y, r / 2, r / 2)) ||
             (x <= 0 && y <= 0 && isInsideRectangle(x, y, r, r / 2));
     }
+
     const calculator = (x, y, r) => {
         const width = 400;
         const height = 400;
@@ -195,7 +208,7 @@ const Inputs = () => {
     }
 
 
-return (
+    return (
         <Container>
             <StyledFormControl>
                 <StyledFormLabel component="legend">X: </StyledFormLabel>

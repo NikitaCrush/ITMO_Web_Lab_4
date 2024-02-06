@@ -1,9 +1,3 @@
-export function clearStore() {
-    return {
-        type: 'DEFAULT_STATE',
-    };
-}
-
 const initialState = {
     x: null,
     y: null,
@@ -37,7 +31,7 @@ const pointReducer = (state = initialState, action) => {
         case 'LOGOUT':
             return {initialState};
         case 'LOGIN':
-            return{...state, authStatus: true};
+            return {...state, authStatus: true};
         case 'DEFAULT_STATE':
             return {initialState};
         default:

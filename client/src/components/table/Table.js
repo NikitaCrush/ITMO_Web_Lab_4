@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getPoints} from '../../redux/actions/pointsActions';
-import {StyledTableContainer, StyledTable, StyledTableRow, StyledTableCell, StyledPaper } from './tableStyles';
+import {StyledTableContainer, StyledTable, StyledTableRow, StyledTableCell, StyledPaper} from './tableStyles';
 import {Paper, TableBody, TableHead} from "@mui/material";
 
 const PointsTable = () => {
@@ -39,7 +39,8 @@ const PointsTable = () => {
                                 <StyledTableCell align="center">{point.y}</StyledTableCell>
                                 <StyledTableCell align="center">{point.r}</StyledTableCell>
                                 <StyledTableCell align="center">{point.result ? "true" : "false"}</StyledTableCell>
-                                <StyledTableCell align="center">{point.currentTime ? new Date(point.currentTime).toLocaleString() : ""}</StyledTableCell>
+                                <StyledTableCell
+                                    align="center">{point.currentTime ? new Date(point.currentTime).toLocaleString() : ""}</StyledTableCell>
                             </StyledTableRow>
                         ))}
                     </TableBody>

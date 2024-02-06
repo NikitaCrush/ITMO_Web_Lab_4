@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 import React from 'react';
 import LoginPage from '../authication/Login';
 import MainPage from '../mainPage/MainPage';
@@ -15,12 +15,12 @@ function App() {
                     path="/"
                     element={
                         <>
-                            <Intro />
-                            {authStatus ? <Navigate to="/main" /> : <LoginPage />}
+                            <Intro/>
+                            {authStatus ? <Navigate to="/main"/> : <LoginPage/>}
                         </>
                     }
                 />
-                <Route path="/main" element={authStatus ? <MainPage /> : <Navigate to="/" />} />
+                <Route path="/main" element={authStatus ? <MainPage/> : <Navigate to="/"/>}/>
             </Routes>
         </Router>
     );

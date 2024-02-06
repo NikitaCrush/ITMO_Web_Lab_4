@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import {thunk} from 'redux-thunk';
 import pointReducer from "./reducer/pointsReducer";
 
@@ -14,7 +14,12 @@ const loadState = () => {
     }
 };
 
-const store = createStore(pointReducer, loadState(), applyMiddleware(thunk));
+const store = configureStore({
+    reducer: pointReducer,
+    preloadedState: loadState(),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+});
+
 store.subscribe(() => {
     try {
         const stateToSave = store.getState();

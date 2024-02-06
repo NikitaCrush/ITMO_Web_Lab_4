@@ -1,4 +1,4 @@
-import { styled } from '@mui/system';
+import {styled} from '@mui/system';
 import {TableCell, TableContainer, Table, TableRow, Paper} from '@mui/material';
 
 export const StyledTableContainer = styled(TableContainer)`
@@ -56,6 +56,6 @@ export const StyledTableCell = styled(TableCell)`
 
 export const StyledPaper = styled(Paper)`
     root{
-        backgroundColor: '#4d4d4d !important',
+        background-color: #4d4d4d !important;
     },
 `;

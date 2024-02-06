@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Container, ButtonContainer, StyledButton, TextFieldStyle, Message } from "./loginStyles";
-import { useAuth } from "../../suppliers/auth";
+import React, {useState} from "react";
+import {Container, ButtonContainer, StyledButton, TextFieldStyle, Message} from "./loginStyles";
+import {useAuth} from "../../suppliers/auth";
 import {useDispatch} from "react-redux";
 
 const Login = () => {
@@ -29,7 +29,7 @@ const Login = () => {
         } else {
             try {
                 await auth.login(username, password);
-                dispatch({ type: 'LOGIN' });
+                dispatch({type: 'LOGIN'});
                 setMessage("You have successfully logged in");
             } catch (error) {
                 setMessage("Error logging in");

@@ -11,7 +11,7 @@ export const sendPoints = (x, y, r) => {
             const currentTime = new Date().toISOString();
             const response = await axiosInstance.post(
                 `http://localhost:8080/api/points`,
-                JSON.stringify({ x, y, r, currentTime }),
+                JSON.stringify({x, y, r, currentTime}),
                 {
                     withCredentials: true,
                     headers: {
@@ -76,7 +76,7 @@ export const resetPoints = () => {
                 }
             );
             if (response.status === 200) {
-                dispatch({ type: 'RESET_ALL_POINTS' });
+                dispatch({type: 'RESET_ALL_POINTS'});
                 console.log('Points cleared successfully');
             }
         } catch (error) {

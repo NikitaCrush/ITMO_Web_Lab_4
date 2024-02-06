@@ -8,7 +8,7 @@ package org.bogdans.dto
  * @property r Radius.
  * @property currentTime Time when the point is created or processed.
  */
-data class PointDto (
+data class PointDto(
     val x: Double,
     val y: Double,
     val r: Double,

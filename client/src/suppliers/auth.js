@@ -6,8 +6,8 @@ export function useAuth() {
         try {
             const response = await axiosInstance.post(
                 'http://localhost:8080/api/register',
-                { username: login, password: password },
-                { headers: { 'Content-Type': 'application/json' }}
+                {username: login, password: password},
+                {headers: {'Content-Type': 'application/json'}}
             );
             console.log('Registration successful', response.data);
             return response.data;
@@ -21,8 +21,8 @@ export function useAuth() {
         try {
             const response = await axiosInstance.post(
                 'http://localhost:8080/api/authenticate',
-                { username: login, password: password },
-                { headers: { 'Content-Type': 'application/json' }}
+                {username: login, password: password},
+                {headers: {'Content-Type': 'application/json'}}
             );
             if (response.data && response.data.token) {
                 localStorage.setItem("jwtToken", response.data.token);
@@ -59,6 +59,5 @@ export function useAuth() {
     };
 
 
-
-    return { register, login, logout };
+    return {register, login, logout};
 }
