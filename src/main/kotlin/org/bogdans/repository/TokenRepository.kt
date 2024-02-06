@@ -1,7 +1,6 @@
 package org.bogdans.repository
 
 import org.bogdans.model.Token
-import org.bogdans.model.User
 import org.springframework.data.jpa.repository.JpaRepository
 
 /**
