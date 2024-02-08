@@ -7,6 +7,8 @@ plugins {
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.spring") version "1.9.21"
     kotlin("plugin.jpa") version "1.8.0"
+    id("com.github.johnrengelman.shadow") version "7.1.0"
+
 
 }
 
@@ -28,7 +30,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web:3.2.1")
+    implementation("org.springframework.boot:spring-boot-starter-web:3.2.2")
     implementation ("org.springframework.boot:spring-boot-starter-websocket")
     implementation("org.springframework:spring-webmvc:6.1.2")
 
@@ -42,7 +44,6 @@ dependencies {
     implementation ("org.springframework.boot:spring-boot-starter-data-jdbc")
 
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.0")
     developmentOnly("org.springframework.boot:spring-boot-devtools:3.0.4")
     runtimeOnly("org.springframework.boot:spring-boot-starter-tomcat:3.1.0")
     implementation("org.springframework.security:spring-security-crypto:6.0.2")
@@ -77,6 +78,14 @@ tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs += "-Xjsr305=strict"
         jvmTarget = "21"
+    }
+}
+
+
+tasks.shadowJar {
+    archiveClassifier.set("")
+    manifest {
+        attributes["Main-Class"] = "org.bogdans.ApplicationKt"
     }
 }
 

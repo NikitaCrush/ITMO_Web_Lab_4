@@ -99,7 +99,7 @@ class SecurityConfig {
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
         configuration.allowedOrigins =
-            listOf("http://localhost:3000", "http://localhost:3001") // or listOf("*") for allowing all origins
+            listOf("http://localhost:3000", "http://localhost:3001", "https://literate-live-snapper.ngrok-free.app/") // or listOf("*") for allowing all origins
         configuration.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
         configuration.allowedHeaders = listOf("*")
         configuration.allowCredentials = true
