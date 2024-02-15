@@ -28,11 +28,6 @@ const pointReducer = (state = initialState, action) => {
                 ...state,
                 points: []
             };
-        case 'GET_RESULT':
-            return {
-                ...state,
-                points: action.payload
-            };
         case 'LOGOUT':
             return {initialState};
         case 'LOGIN':

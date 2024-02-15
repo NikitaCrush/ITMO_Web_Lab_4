@@ -25,6 +25,7 @@ import {useAuth} from "../../suppliers/auth";
 import {useNavigate} from "react-router-dom";
 
 const Inputs = () => {
+    let result;
     const x = useSelector((state) => state.x);
     const y = useSelector((state) => state.y);
     const r = useSelector((state) => state.r);
@@ -88,7 +89,7 @@ const Inputs = () => {
         if (points && Array.isArray(points)) {
             points.forEach((point) => {
                 const {x, y, r} = point;
-                calculator(x, y, r);
+                calculator(x, y, r, result);
             });
         }
     };
@@ -108,27 +109,14 @@ const Inputs = () => {
         }, 3000);
     };
 
-    let flag;
-
-    function check(x, y, r) {
-        const isInsideCircle = (x, y, radius) => x * x + y * y <= radius * radius;
-        const isInsideRectangle = (x, y, height, width) => Math.abs(x) <= width && Math.abs(y) <= height;
-        const isInsideRhombus = (x, y, height, width) => Math.abs(x) / width + Math.abs(y) / height <= 1;
-        // flag = (x <= 0 && y >= 0 && isInsideCircle(x, y, r / 2)) ||
-        //     (x >= 0 && y <= 0 && isInsideRhombus(x, y, r / 2, r / 2)) ||
-        //     (x <= 0 && y <= 0 && isInsideRectangle(x, y, r, r / 2));
-        flag = localStorage.getItem("flag");
-    }
-
-    const calculator = (x, y, r) => {
+    const calculator = (x, y, r, result) => {
         const width = 400;
         const height = 400;
         const centerX = width / 2;
         const centerY = height / 2;
         const cx = centerX + x * (width / (3.3 * r));
         const cy = centerY - y * (height / (3.3 * r));
-        check(x, y, r);
-        setRound(cx, cy, flag);
+        setRound(cx, cy, result);
     }
 
 
@@ -150,10 +138,22 @@ const Inputs = () => {
             const temp = 120 / radius;
             const newX = (tempX / temp).toFixed(1);
             const newY = (tempY / temp).toFixed(1);
-            dispatch(setX(newX));
-            dispatch(setY(newY));
-            dispatch(sendPoints(newX, newY, radius));
-            calculator(newX, newY, radius);
+            try {
+                const action = sendPoints(newX, newY, radius);
+                const result = await action(dispatch);
+                console.log("RESULT:", result);
+                dispatch(setX(newX));
+                dispatch(setY(newY));
+                calculator(newX, newY, radius, result);
+            } catch (error) {
+                console.error("Error sending points:", error);
+            }
+            // const result = sendPoints(newX, newY, radius).getResult();
+            // console.log("RESULT BLYAT ", result);
+            // dispatch(setX(newX));
+            // dispatch(setY(newY));
+            // dispatch(sendPoints(newX, newY, radius));
+            // calculator(newX, newY, radius, result);
         };
 
         svg.addEventListener("click", drawPoint);
@@ -161,10 +161,9 @@ const Inputs = () => {
         return () => {
             svg.removeEventListener("click", drawPoint);
         };
-    }, [check, updateSVG, calculator, dispatch, isRadiusSelected, r]);
+    }, [updateSVG, calculator, dispatch, isRadiusSelected, r]);
 
-
-    const setRound = (cx, cy, flag) => {
+    const setRound = async (cx, cy, result) => {
         const svg = document.querySelector("svg");
         const circle = document.createElementNS(
             "http://www.w3.org/2000/svg",
@@ -173,7 +172,7 @@ const Inputs = () => {
         circle.setAttribute("cx", cx);
         circle.setAttribute("cy", cy);
         circle.setAttribute("r", "5");
-        if (flag) {
+        if (result) {
             circle.setAttribute("fill", "green");
         } else {
             circle.setAttribute("fill", "red");

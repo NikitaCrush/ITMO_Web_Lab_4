@@ -7,7 +7,6 @@ export const logoutAuth = () => ({type: 'LOGOUT'})
 export const sendPoints = (x, y, r) => {
     return async function (dispatch) {
         try {
-            localStorage.removeItem("flag");
             const token = localStorage.getItem("jwtToken");
             const currentTime = new Date().toISOString();
             const response = await axiosInstance.post(
@@ -26,8 +25,9 @@ export const sendPoints = (x, y, r) => {
                     type: 'ADD_POINTS',
                     payload: response.data
                 });
-                localStorage.setItem("flag", response.data.result);
                 console.log(`Point successfully saved:`, response.data);
+                const result = response.data.result;
+                return result;
             }
         } catch (error) {
             console.error('Error sending point:', error);
@@ -86,31 +86,3 @@ export const resetPoints = () => {
         }
     };
 };
-
-export const getResult = () => {
-    return async (dispatch) => {
-        try {
-            const token = localStorage.getItem("jwtToken");
-            const response = await axiosInstance.get(
-                `http://localhost:8080/api/points`,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    withCredentials: true
-                }
-            );
-
-            dispatch({
-                type: 'GET_RESULT',
-                payload: response.data.result
-            });
-
-            console.log('Result is', response.data.result);
-        } catch (error) {
-            console.error("Error getting result", error);
-        }
-    };
-};
-
