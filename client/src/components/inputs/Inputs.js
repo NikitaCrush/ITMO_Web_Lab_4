@@ -114,9 +114,10 @@ const Inputs = () => {
         const isInsideCircle = (x, y, radius) => x * x + y * y <= radius * radius;
         const isInsideRectangle = (x, y, height, width) => Math.abs(x) <= width && Math.abs(y) <= height;
         const isInsideRhombus = (x, y, height, width) => Math.abs(x) / width + Math.abs(y) / height <= 1;
-        flag = (x <= 0 && y >= 0 && isInsideCircle(x, y, r / 2)) ||
-            (x >= 0 && y <= 0 && isInsideRhombus(x, y, r / 2, r / 2)) ||
-            (x <= 0 && y <= 0 && isInsideRectangle(x, y, r, r / 2));
+        // flag = (x <= 0 && y >= 0 && isInsideCircle(x, y, r / 2)) ||
+        //     (x >= 0 && y <= 0 && isInsideRhombus(x, y, r / 2, r / 2)) ||
+        //     (x <= 0 && y <= 0 && isInsideRectangle(x, y, r, r / 2));
+        flag = localStorage.getItem("flag");
     }
 
     const calculator = (x, y, r) => {
