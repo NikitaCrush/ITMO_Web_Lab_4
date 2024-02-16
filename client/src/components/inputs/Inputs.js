@@ -88,7 +88,7 @@ const Inputs = () => {
         clearSVG();
         if (points && Array.isArray(points)) {
             points.forEach((point) => {
-                const {x, y, r} = point;
+                const {x, y, r, result} = point;
                 calculator(x, y, r, result);
             });
         }
